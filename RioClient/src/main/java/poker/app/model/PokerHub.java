@@ -28,7 +28,7 @@ import pokerEnums.eGame;
 import pokerEnums.eGameState;
 
 public class PokerHub extends Hub {
- 
+
 	private Table HubPokerTable = new Table();
 	private GamePlay HubGamePlay;
 	private int iDealNbr = 0;
@@ -80,7 +80,6 @@ public class PokerHub extends Hub {
 				// Set the order of players
 				HubGamePlay.setiActOrder(GamePlay.GetOrder(pDealer.getiPlayerPosition()));
 
-
 			case Draw:
 
 				HubGamePlay
@@ -97,8 +96,6 @@ public class PokerHub extends Hub {
 								try {
 									HubGamePlay.drawCard(p, cd.getCardDestination());
 								} catch (DeckException e) {
-									// Whoops! Exception was throw... send it
-									// back to the client
 									resetOutput();
 									sendToAll(e);
 									e.printStackTrace();
@@ -115,8 +112,7 @@ public class PokerHub extends Hub {
 							try {
 								HubGamePlay.drawCard(p, cd.getCardDestination());
 							} catch (DeckException e) {
-								// Whoops! Exception was throw... send it
-								// back to the client
+	
 								resetOutput();
 								sendToAll(e);
 								e.printStackTrace();
@@ -127,12 +123,11 @@ public class PokerHub extends Hub {
 				}
 
 				HubGamePlay.isGameOver();
-				
+
 				resetOutput();
 				sendToAll(HubGamePlay);
 				break;
 			case ScoreGame:
-				// Am I at the end of the game?
 				try {
 					HubGamePlay.ScoreGame();
 					HubGamePlay.seteGameState(eGameState.SCORED);
@@ -146,7 +141,7 @@ public class PokerHub extends Hub {
 				sendToAll(HubGamePlay);
 				break;
 			}
-			
+
 		}
 
 	}
